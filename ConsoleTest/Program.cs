@@ -9,17 +9,9 @@ internal class Program
         Console.WriteLine("Hello, World!");
 
 
-        BigNumber one = new BigNumber()
-        {
-            NumValue = 10,
-            UnitValue = ""
-        };
-        BigNumber two = new BigNumber()
-        {
-            NumValue = 1000,
-        };
-
-        var result = one + two;
+        BigNumber one = new BigNumber(1000, 28);
+        Console.WriteLine(one.ToString());
+        
 
     }
 }
