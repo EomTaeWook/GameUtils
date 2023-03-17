@@ -1,18 +1,20 @@
-﻿namespace ShareLogic;
-
-public class Incremental
+﻿namespace GameUtils 
 {
-    private long _index;
-    private readonly object _syncObj = new object();
-    public long Increment()
+    public class Incremental
     {
-        lock (_syncObj)
+        private long _index;
+        private readonly object _syncObj = new object();
+        public long Increment()
+        {
+            lock (_syncObj)
+            {
+                return ++_index;
+            }
+        }
+        public long Current()
         {
             return ++_index;
         }
     }
-    public long Current()
-    {
-        return ++_index;
-    }
+
 }

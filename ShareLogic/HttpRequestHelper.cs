@@ -1,19 +1,23 @@
-﻿using System.Text;
+﻿using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ShareLogic;
-
-public class HttpRequestHelper
+namespace GameUtils 
 {
-    private static readonly HttpClient _webClient = new HttpClient();
-
-    public async Task<string> PostByJsonAsync(string url, string json)
+    public class HttpRequestHelper
     {
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        private static readonly HttpClient _webClient = new HttpClient();
 
-        var response = await _webClient.PostAsync(url, content);
+        public async Task<string> PostByJsonAsync(string url, string json)
+        {
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-        var jsonResponse = await response.Content.ReadAsStringAsync();
+            var response = await _webClient.PostAsync(url, content);
 
-        return jsonResponse;
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            return jsonResponse;
+        }
     }
+
 }
