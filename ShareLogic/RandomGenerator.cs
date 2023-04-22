@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GameUtils
 {
@@ -42,6 +43,19 @@ namespace GameUtils
         public int GetUsedIndex()
         {
             return _used;
+        }
+        public static void Shuffle<T>(IList<T> items)
+        {            
+            int n = items.Count;
+            var random = new Random();
+            while (n > 1)
+            {
+                n--;
+                int k = random.Next(n + 1);
+                var value = items[k];
+                items[k] = items[n];
+                items[n] = value;
+            }
         }
     }
 }
