@@ -43,6 +43,10 @@ namespace GameUtils
         }
         public static string Decrypt(byte[] bytes)
         {
+            if(_rsaDecryptCrypto == null)
+            {
+                throw new NullReferenceException(nameof(RSACryptoServiceProvider));
+            }
             var decryptBytes = _rsaDecryptCrypto.Decrypt(bytes, false);
             return Encoding.UTF8.GetString(decryptBytes);
         }
