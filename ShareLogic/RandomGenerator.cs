@@ -7,12 +7,15 @@ namespace GameUtils
     {
         private readonly Random _random = new Random();
         private int _used = 0;
+        public int RandomSeed { get; private set; }
         public RandomGenerator()
         {
-            _random = new Random(DateTime.Now.Ticks.GetHashCode());
+            RandomSeed = DateTime.Now.Ticks.GetHashCode();
+            _random = new Random(RandomSeed);
         }
         public RandomGenerator(int seed)
         {
+            RandomSeed = seed;
             _random = new Random(seed);
         }
         public int Next()
