@@ -43,6 +43,7 @@ namespace GameUtils
             _used++;
             return _random.NextDouble();
         }
+        
         public int GetUsedIndex()
         {
             return _used;

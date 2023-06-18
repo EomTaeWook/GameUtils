@@ -1,9 +1,0 @@
-﻿namespace GameUtils.Path
-{
-    public class Node
-    {
-        public int X { get; set; }
-
-        public int Y { get; set; }
-    }
-}

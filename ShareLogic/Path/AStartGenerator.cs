@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace GameUtils.Path
 {
-    public class AStartGenerator : IPathGenerator
+    public class AStartPathGenerator : IPathGenerator
     {
-        internal class AStartNode : Node
+        internal sealed class AStartNode : PathNode, IEquatable<AStartNode>
         {
             public int G { get; set; }
             public int H { get; set; }
@@ -19,6 +19,11 @@ namespace GameUtils.Path
                 this.X = x;
                 this.Y = y;
             }
+
+            public bool Equals(AStartNode other)
+            {
+                return X == other.X && Y == other.Y;
+            }
         }
 
         private readonly int[,] _map;
@@ -26,22 +31,28 @@ namespace GameUtils.Path
         private readonly int _height;
         private readonly int[] _dx = { -1, 0, 1, 0 };
         private readonly int[] _dy = { 0, 1, 0, -1 };
-        public AStartGenerator(int[,] map)
+
+        public AStartPathGenerator(int width, int height)
+        {
+            _map = new int[width, height];
+            _width = width;
+            _height = height;
+        }
+        public AStartPathGenerator(int[,] map)
         {
             _map = map;
             _width = map.GetLength(0);
             _height = map.GetLength(1);
         }
-        public List<Node> FindPath(Node startNode, Node goalNode)
+        public List<PathNode> Generate(PathNode startNode, PathNode goalNode)
         {
-            var openList = new List<AStartNode>(); // 탐색할 노드들의 목록
-            var closedList = new List<AStartNode>(); // 탐색이 완료된 노드들의 목록
+            var openList = new List<AStartNode>();
+            var closedList = new List<AStartNode>();
             openList.Add(new AStartNode(startNode.X, startNode.Y));
 
             while (openList.Count > 0)
             {
                 AStartNode currentNode = openList[0];
-                // 최소 F 값을 가지는 노드를 찾음
                 for (int i = 1; i < openList.Count; i++)
                 {
                     if (openList[i].F < currentNode.F || openList[i].F == currentNode.F && openList[i].H < currentNode.H)
@@ -52,9 +63,8 @@ namespace GameUtils.Path
 
                 openList.Remove(currentNode);
                 closedList.Add(currentNode);
-                if (currentNode.X == goalNode.X && currentNode.Y == goalNode.Y)
+                if (currentNode.Equals(goalNode))
                 {
-                    // 목적지에 도착했을 때 경로를 반환
                     return GeneratePath(currentNode);
                 }
 
@@ -62,21 +72,19 @@ namespace GameUtils.Path
                 {
                     int neighborX = currentNode.X + _dx[i];
                     int neighborY = currentNode.Y + _dy[i];
-
+                    
                     if (neighborX >= 0 && neighborX < _width && neighborY >= 0 && neighborY < _height)
                     {
-                        // 이웃 노드가 벽이 아닌 경우에만 처리
                         if (_map[neighborX, neighborY] == 0)
                         {
                             AStartNode neighborNode = new AStartNode(neighborX, neighborY);
-                            int cost = 1;
-
+                            
                             if (closedList.Contains(neighborNode))
                             {
                                 continue;
                             }
 
-                            int score = currentNode.G + cost; // 출발지에서 현재 노드까지의 이동 비용
+                            int score = currentNode.G + 1;
                             bool isBestScore = false;
 
                             if (!openList.Contains(neighborNode))
@@ -104,10 +112,9 @@ namespace GameUtils.Path
             return null;
         }
 
-        private List<Node> GeneratePath(AStartNode goalNode)
+        private List<PathNode> GeneratePath(AStartNode goalNode)
         {
-            List<Node> path = new List<Node>();
-
+            List<PathNode> path = new List<PathNode>();
             AStartNode currentNode = goalNode;
             while (currentNode != null)
             {
@@ -117,9 +124,8 @@ namespace GameUtils.Path
             path.Reverse();
             return path;
         }
-        private int CalculateHeuristic(Node node, Node goalNode)
+        private int CalculateHeuristic(PathNode node, PathNode goalNode)
         {
-            // Manhattan 거리를 휴리스틱으로 사용 (가로/세로 이동만 고려)
             return Math.Abs(node.X - goalNode.X) + Math.Abs(node.Y - goalNode.Y);
         }
     }

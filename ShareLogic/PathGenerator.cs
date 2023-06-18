@@ -5,7 +5,7 @@ namespace GameUtils
 {
     public interface IPathGenerator
     {
-        List<Node> FindPath(Node start, Node goal);
+        List<PathNode> Generate(PathNode start, PathNode goal);
     }
     public class PathGenerator
     {
@@ -14,9 +14,9 @@ namespace GameUtils
         {
             _pathGenerator = pathGenerator;
         }
-        public List<Node> FindPath(Node start, Node goal)
+        public List<PathNode> FindPath(PathNode start, PathNode goal)
         {
-            return _pathGenerator.FindPath(start, goal);
+            return _pathGenerator.Generate(start, goal);
         }
     }
 }

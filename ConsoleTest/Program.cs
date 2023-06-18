@@ -1,31 +1,28 @@
 ﻿using GameUtils;
+using GameUtils.Map;
 using System.Text.Json;
 
 namespace ConsoleTest;
 
 internal class Program
 {
-    class TT
+
+    static void Main(string[] args)
     {
-        public string Prompt { get; set; }
-    }
+        int width = 50;
+        int height = 50;
 
-    static async Task Main(string[] args)
-    {
-        Console.WriteLine("Hello, World!");
-        
-        BigNumber one = new BigNumber(1000000, 0);
-        Console.WriteLine(one.ToString());
+        var map = new BSPMapGenerator(new RandomGenerator(-319073866), width, height, 7);
+        var grid = map.Generate();
 
-        var requester = new HttpRequestHelper();
-
-        var json = JsonSerializer.Serialize(new TT()
+        for (int y = 0; y < height; ++y)
         {
-            Prompt = "portrait of a boy holding an apple, gustave climpt, oil paint, high quality, concept art"
-        });
-
-        
-
+            for (int x = 0; x < width; ++x)
+            {
+                Console.Write(grid[x, y] == 1 ? "#" : ".");
+            }
+            Console.WriteLine();
+        }
     }
-
 }
+
