@@ -14,10 +14,8 @@ namespace GameUtils.Path
 
             public AStartNode Parent { get; set; }
 
-            public AStartNode(int x, int y)
+            public AStartNode(int x, int y) : base(x, y)
             {
-                this.X = x;
-                this.Y = y;
             }
 
             public bool Equals(AStartNode other)
