@@ -1,4 +1,5 @@
-﻿using GameUtils.Path;
+﻿using GameUtils.Internals;
+using GameUtils.Path;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
