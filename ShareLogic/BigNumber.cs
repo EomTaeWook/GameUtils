@@ -1,46 +1,102 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
-namespace GameUtils 
+namespace GameUtils
 {
     public struct BigNumber
     {
-        public static readonly char[] Unit = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+        public double Value { get; private set; }
+        public int Magnitude { get; private set; }
+        public string MagnitudeLabel { get; private set; }
 
-        public double NumValue { get; private set; }
-        public int Digit { get; private set; }
-        public string UnitToString { get; private set; }
-
-        public BigNumber(double value, int digit)
+        public string DisplayValue
         {
-            var count = 0;
-            long lNumValue;
-            do
+            get
             {
-                lNumValue = (long)(value /= 1000);
-                count++;
-            } while (lNumValue >= 1000);
+                if (string.IsNullOrEmpty(_displayValue))
+                {
+                    BigNumberHelper.BigNumberToString(this);
+                }
+                return _displayValue;
+            }
+        }
 
-            digit = digit + count - 1;
-            Digit = digit;
-            NumValue = value;
+        private readonly string _displayValue;
+        public BigNumber(double value) : this(value, -1)
+        {
+        }
+        public BigNumber(double value, int digit = -1)
+        {
+            while (value >= 1000)
+            {
+                value /= 1000;
+                digit++;
+            }
+            Magnitude = digit;
+            Value = value;
 
             var sb = new StringBuilder();
-            do
+            while (digit >= 0)
             {
-                sb.Insert(0, Unit[digit % Unit.Length]);
-                digit = digit / Unit.Length - 1;
-            } while (digit >= 0);
-
-            UnitToString = sb.ToString();
-        }
-        public override string ToString()
-        {
-            return $"{string.Format("{0:F2}", NumValue)}{UnitToString}";
+                sb.Insert(0, BigNumberHelper.MagnitudeUnits[digit % BigNumberHelper.MagnitudeUnits.Length]);
+                digit = digit / BigNumberHelper.MagnitudeUnits.Length - 1;
+            }
+            MagnitudeLabel = sb.ToString();
+            _displayValue = string.Empty;
         }
         public static BigNumber operator +(BigNumber number1, BigNumber number2)
         {
-            return new BigNumber();
+            double convertedValue1 = number1.Value;
+            double convertedValue2 = number2.Value;
+            int finalMagnitude = number1.Magnitude;
+            if (number1.Magnitude > number2.Magnitude)
+            {
+                for (int i = 0; i < (number1.Magnitude - number2.Magnitude); i++)
+                {
+                    convertedValue2 /= 1000;
+                }
+            }
+            else if (number1.Magnitude < number2.Magnitude)
+            {
+                for (int i = 0; i < (number2.Magnitude - number1.Magnitude); i++)
+                {
+                    convertedValue1 /= 1000;
+                }
+                finalMagnitude = number2.Magnitude;
+            }
+            var value = convertedValue1 + convertedValue2;
+
+            return new BigNumber(value, finalMagnitude);
+        }
+        public static BigNumber operator -(BigNumber number1, BigNumber number2)
+        {
+            double convertedValue1 = number1.Value;
+            double convertedValue2 = number2.Value;
+            int finalMagnitude = number1.Magnitude;
+
+            if (number1.Magnitude > number2.Magnitude)
+            {
+                for (int i = 0; i < (number1.Magnitude - number2.Magnitude); i++)
+                {
+                    convertedValue2 /= 1000;
+                }
+            }
+            else if (number1.Magnitude < number2.Magnitude)
+            {
+                for (int i = 0; i < (number2.Magnitude - number1.Magnitude); i++)
+                {
+                    convertedValue1 /= 1000;
+                }
+                finalMagnitude = number2.Magnitude;
+            }
+
+            var value = convertedValue1 - convertedValue2;
+            if (Math.Abs(value) < 1)
+            {
+                value *= 1000;
+                finalMagnitude--;
+            }
+            return new BigNumber(value, finalMagnitude);
         }
     }
-
 }

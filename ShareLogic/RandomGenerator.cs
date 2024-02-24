@@ -7,12 +7,15 @@ namespace GameUtils
     {
         private readonly Random _random = new Random();
         private int _used = 0;
+        public int RandomSeed { get; private set; }
         public RandomGenerator()
         {
-            _random = new Random(DateTime.Now.Ticks.GetHashCode());
+            RandomSeed = DateTime.Now.Ticks.GetHashCode();
+            _random = new Random(RandomSeed);
         }
         public RandomGenerator(int seed)
         {
+            RandomSeed = seed;
             _random = new Random(seed);
         }
         public int Next()
@@ -27,7 +30,7 @@ namespace GameUtils
                 throw new ArgumentOutOfRangeException(nameof(max));
             }
             _used++;
-            return _random.Next(min, max + 1);
+            return _random.Next(min, max);
         }
         public int Next(int max)
         {
@@ -40,22 +43,24 @@ namespace GameUtils
             _used++;
             return _random.NextDouble();
         }
+
         public int GetUsedIndex()
         {
             return _used;
         }
-        public static void Shuffle<T>(IList<T> items)
-        {            
-            int n = items.Count;
-            var random = new Random();
+        public List<T> Shuffle<T>(IList<T> items)
+        {
+            var dest = new List<T>(items);
+            int n = dest.Count;
             while (n > 1)
             {
                 n--;
-                int k = random.Next(n + 1);
-                var value = items[k];
-                items[k] = items[n];
-                items[n] = value;
+                int k = _random.Next(n + 1);
+                var value = dest[k];
+                dest[k] = dest[n];
+                dest[n] = value;
             }
+            return dest;
         }
     }
 }
