@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameUtils
 {
-    public class AsyncHttpRequester
+    public class HttpRequester
     {
         private static readonly HttpClient _httpClient = new HttpClient();
 
