@@ -8,5 +8,9 @@ namespace GameUtils.Extensions
         {
             return task.ConfigureAwait(continueOnCapturedContext).GetAwaiter().GetResult();
         }
+        public static void GetResult(this Task task, bool continueOnCapturedContext = false)
+        {
+            task.ConfigureAwait(continueOnCapturedContext).GetAwaiter().GetResult();
+        }
     }
 }
