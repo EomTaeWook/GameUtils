@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Utils.Path
+namespace GameUtils.Path
 {
     public class PathNode : IEquatable<PathNode>
     {

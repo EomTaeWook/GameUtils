@@ -1,4 +1,4 @@
-﻿namespace Utils.Math
+﻿namespace GameUtils.Math
 {
     public class BigNumberHelper
     {

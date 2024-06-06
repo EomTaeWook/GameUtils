@@ -1,4 +1,4 @@
-﻿namespace Utils.Map
+﻿namespace GameUtils.Map
 {
     public interface IMapGenerator
     {

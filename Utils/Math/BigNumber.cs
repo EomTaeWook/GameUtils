@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Utils.Math
+namespace GameUtils.Math
 {
     public struct BigNumber
     {

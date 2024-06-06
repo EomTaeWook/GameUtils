@@ -1,6 +1,7 @@
-﻿using System.Numerics;
+﻿using GameUtils.Math;
+using System.Numerics;
 
-namespace Utils.Extensions
+namespace GameUtils.Extensions
 {
     public enum Direction
     {

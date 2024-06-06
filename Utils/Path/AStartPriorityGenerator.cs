@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Utils.Path
+namespace GameUtils.Path
 {
     public class AStartPriorityGenerator : IPathGenerator
     {

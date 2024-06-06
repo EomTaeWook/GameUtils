@@ -1,5 +1,5 @@
-﻿using Utils;
-using Utils.Math;
+﻿using GameUtils.Crypto;
+using GameUtils.Math;
 
 namespace ConsoleTest;
 

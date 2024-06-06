@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Utils
+namespace GameUtils.Crypto
 {
     public class Cryptogram
     {

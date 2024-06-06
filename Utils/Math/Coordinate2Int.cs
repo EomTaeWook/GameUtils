@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace Utils
+namespace GameUtils.Math
 {
     public struct Coordinate2Int
     {

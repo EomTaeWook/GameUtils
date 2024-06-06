@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Utils
+namespace GameUtils
 {
     public class TimeHelper
     {

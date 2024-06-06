@@ -1,4 +1,4 @@
-﻿namespace Utils.Internals
+﻿namespace GameUtils.Internals
 {
     internal class Node<T>
     {
