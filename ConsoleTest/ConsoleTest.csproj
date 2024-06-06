@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ShareLogic\GameUtils.csproj" />
+    <ProjectReference Include="..\GameUtils\Utils.csproj" />
   </ItemGroup>
 
 </Project>

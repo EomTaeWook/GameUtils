@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace GameUtils.Extensions
+namespace Utils.Extensions
 {
     public static class TaskExtensions
     {

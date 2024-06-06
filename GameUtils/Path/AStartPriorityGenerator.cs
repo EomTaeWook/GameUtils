@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GameUtils.Path
+namespace Utils.Path
 {
     public class AStartPriorityGenerator : IPathGenerator
     {
@@ -100,7 +100,7 @@ namespace GameUtils.Path
         }
         private int CalculateHeuristic(PathNode node, PathNode goalNode)
         {
-            return Math.Abs(node.X - goalNode.X) + Math.Abs(node.Y - goalNode.Y);
+            return System.Math.Abs(node.X - goalNode.X) + System.Math.Abs(node.Y - goalNode.Y);
         }
     }
 }

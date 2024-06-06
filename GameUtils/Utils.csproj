@@ -4,6 +4,8 @@
     <TargetFrameworks>net8.0;net480</TargetFrameworks>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
+    <Authors>EomTaeWook</Authors>
+    <RepositoryUrl>https://github.com/EomTaeWook/GameUtils</RepositoryUrl>
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
-namespace GameUtils
+namespace Utils.Math
 {
     public struct BigNumber
     {
@@ -51,14 +50,14 @@ namespace GameUtils
             int finalMagnitude = number1.Magnitude;
             if (number1.Magnitude > number2.Magnitude)
             {
-                for (int i = 0; i < (number1.Magnitude - number2.Magnitude); i++)
+                for (int i = 0; i < number1.Magnitude - number2.Magnitude; i++)
                 {
                     convertedValue2 /= 1000;
                 }
             }
             else if (number1.Magnitude < number2.Magnitude)
             {
-                for (int i = 0; i < (number2.Magnitude - number1.Magnitude); i++)
+                for (int i = 0; i < number2.Magnitude - number1.Magnitude; i++)
                 {
                     convertedValue1 /= 1000;
                 }
@@ -76,14 +75,14 @@ namespace GameUtils
 
             if (number1.Magnitude > number2.Magnitude)
             {
-                for (int i = 0; i < (number1.Magnitude - number2.Magnitude); i++)
+                for (int i = 0; i < number1.Magnitude - number2.Magnitude; i++)
                 {
                     convertedValue2 /= 1000;
                 }
             }
             else if (number1.Magnitude < number2.Magnitude)
             {
-                for (int i = 0; i < (number2.Magnitude - number1.Magnitude); i++)
+                for (int i = 0; i < number2.Magnitude - number1.Magnitude; i++)
                 {
                     convertedValue1 /= 1000;
                 }
@@ -91,7 +90,7 @@ namespace GameUtils
             }
 
             var value = convertedValue1 - convertedValue2;
-            if (Math.Abs(value) < 1)
+            if (System.Math.Abs(value) < 1)
             {
                 value *= 1000;
                 finalMagnitude--;

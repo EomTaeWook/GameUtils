@@ -1,10 +1,10 @@
-﻿using GameUtils.Internals;
-using GameUtils.Path;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Utils.Internals;
+using Utils.Path;
 
-namespace GameUtils.Map
+namespace Utils.Map
 {
     public class ProceduralMapGeneration : IMapGenerator
     {

@@ -1,4 +1,4 @@
-﻿namespace GameUtils
+﻿namespace Utils.Math
 {
     public class BigNumberHelper
     {
@@ -11,7 +11,7 @@
         }
         public static string BigNumberToString(BigNumber bigNumber)
         {
-            if(bigNumber.Magnitude >=0)
+            if (bigNumber.Magnitude >= 0)
             {
                 return $"{string.Format(_numberFormat, bigNumber.Value)}{bigNumber.MagnitudeLabel}";
             }

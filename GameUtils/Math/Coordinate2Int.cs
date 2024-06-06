@@ -1,7 +1,6 @@
-﻿using System;
-using System.Numerics;
+﻿using System.Numerics;
 
-namespace GameUtils
+namespace Utils
 {
     public struct Coordinate2Int
     {
@@ -15,7 +14,7 @@ namespace GameUtils
         public static Coordinate2Int Zero => default;
         public static double Distance(Coordinate2Int a, Coordinate2Int b)
         {
-            return Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2));
+            return System.Math.Sqrt(System.Math.Pow(a.X - b.X, 2) + System.Math.Pow(a.Y - b.Y, 2));
         }
         public static Coordinate2Int operator +(Coordinate2Int a, Coordinate2Int b)
         {

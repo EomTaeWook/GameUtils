@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace GameUtils
+namespace Utils
 {
     public class LongIncrementer
     {

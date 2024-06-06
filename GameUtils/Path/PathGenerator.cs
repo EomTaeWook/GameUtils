@@ -1,8 +1,8 @@
-﻿using GameUtils.Path;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Utils.Path;
 
-namespace GameUtils
+namespace Utils
 {
     public interface IPathGenerator
     {

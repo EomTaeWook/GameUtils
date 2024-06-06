@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameUtils.Path
+namespace Utils.Path
 {
     internal sealed class AStartNode : PathNode, IEquatable<AStartNode>, IComparable<AStartNode>
     {

@@ -1,4 +1,5 @@
-﻿using GameUtils;
+﻿using Utils;
+using Utils.Math;
 
 namespace ConsoleTest;
 

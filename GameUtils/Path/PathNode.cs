@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameUtils.Path
+namespace Utils.Path
 {
     public class PathNode : IEquatable<PathNode>
     {
@@ -13,10 +13,10 @@ namespace GameUtils.Path
             return X == other.X && Y == other.Y;
         }
 
-        public PathNode(int x, int y) 
+        public PathNode(int x, int y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
-    }    
+    }
 }
