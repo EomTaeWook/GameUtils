@@ -7,12 +7,29 @@ namespace GameUtils
         public const int WeekOfDay = 7;
         public static int GetDateTimeToWeek(DateTime dateTime)
         {
-            var days = TimeSpan.FromTicks(DateTime.UtcNow.Ticks - dateTime.Ticks).TotalDays;
-            return GetDayToWeek(days);
+            var totalDays = TimeSpan.FromTicks(DateTime.UtcNow.Ticks - dateTime.Ticks).TotalDays;
+            return GetDayToWeek(totalDays);
         }
-        public static int GetDayToWeek(double days)
+        public static int GetDayToWeek(double totalDays)
         {
-            return (int)(days / WeekOfDay);
+            return (int)(totalDays / WeekOfDay);
         }
+
+        public static DateTime CalculateStartOfWeek(DateTime currentDateTime)
+        {
+            var dateTime = currentDateTime.Date;
+            int daysToWeekStart;
+            if (dateTime.DayOfWeek == DayOfWeek.Sunday)
+            {
+                daysToWeekStart = (int)DayOfWeek.Saturday;
+            }
+            else
+            {
+                daysToWeekStart = dateTime.DayOfWeek - DayOfWeek.Monday;
+            }
+            var weekStartDate = dateTime.AddDays(-daysToWeekStart);
+            return weekStartDate;
+        }
+
     }
 }

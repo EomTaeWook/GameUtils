@@ -26,22 +26,20 @@ namespace GameUtils.Map
         }
 
         private readonly int MinRoomSize;
-        private readonly RandomGenerator _randomGenerator;
+        private readonly Random _random;
 
         private readonly RoomContainer _rootConatiner;
         private readonly AStartPriorityGenerator _allPathGenerator;
         public ProceduralMapGeneration(int width, int height, int minRoomSize) : this(
-            new RandomGenerator(DateTime.Now.GetHashCode()),
+            new Random(DateTime.Now.GetHashCode()),
             width,
             height,
             minRoomSize)
         {
         }
-        public ProceduralMapGeneration(RandomGenerator randomGenerator, int width, int height, int minRoomSize)
+        public ProceduralMapGeneration(Random random, int width, int height, int minRoomSize)
         {
-            Console.WriteLine(randomGenerator.RandomSeed);
-
-            _randomGenerator = randomGenerator;
+            _random = random;
 
             MinRoomSize = minRoomSize + 2;
             _rootConatiner = new RoomContainer()
@@ -100,15 +98,15 @@ namespace GameUtils.Map
             var nodeY = node.Y + 1;
             var room = new Room
             {
-                X = nodeX + _randomGenerator.Next(0, node.Width / 3),
-                Y = nodeY + _randomGenerator.Next(0, node.Height / 3)
+                X = nodeX + _random.Next(0, node.Width / 3),
+                Y = nodeY + _random.Next(0, node.Height / 3)
             };
 
             room.Width = nodeWidth - (room.X - node.X);
             room.Height = nodeHeight - (room.Y - node.Y);
 
-            room.Width -= _randomGenerator.Next(0, node.Width / 3);
-            room.Height -= _randomGenerator.Next(0, node.Height / 3);
+            room.Width -= _random.Next(0, node.Width / 3);
+            room.Height -= _random.Next(0, node.Height / 3);
 
             for (int y = 0; y < room.Height; ++y)
             {
@@ -164,7 +162,7 @@ namespace GameUtils.Map
         }
         private Tuple<RoomContainer, RoomContainer> GetRandomSplitContainer(RoomContainer roomContainer)
         {
-            bool splitHorizontally = _randomGenerator.Next(0, 1) == 0;
+            bool splitHorizontally = _random.Next(0, 1) == 0;
 
             if (roomContainer.Width <= MinRoomSize * 2 && roomContainer.Height <= MinRoomSize * 2)
             {
@@ -185,7 +183,7 @@ namespace GameUtils.Map
             {
                 int minValue = Convert.ToInt32(roomContainer.Height * 0.4);
                 int maxValue = Convert.ToInt32(roomContainer.Height * 0.5);
-                int splitHeight = _randomGenerator.Next(minValue, maxValue);
+                int splitHeight = _random.Next(minValue, maxValue);
                 roomContainer1 = new RoomContainer()
                 {
                     X = roomContainer.X,
@@ -207,7 +205,7 @@ namespace GameUtils.Map
                 int minValue = Convert.ToInt32(roomContainer.Width * 0.4);
                 int maxValue = Convert.ToInt32(roomContainer.Width * 0.5);
 
-                int splitWidth = _randomGenerator.Next(minValue, maxValue);
+                int splitWidth = _random.Next(minValue, maxValue);
 
                 roomContainer1 = new RoomContainer()
                 {

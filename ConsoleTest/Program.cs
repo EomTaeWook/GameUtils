@@ -1,4 +1,5 @@
-﻿using GameUtils.Crypto;
+﻿using GameUtils;
+using GameUtils.Crypto;
 using GameUtils.Math;
 
 namespace ConsoleTest;
@@ -15,13 +16,23 @@ internal class Program
         //var grid = map.Generate();
         //map.Print(grid);
 
+        var t = TimeHelper.CalculateStartOfWeek(DateTime.Now);
+
+        t = TimeHelper.CalculateStartOfWeek(DateTime.Now.AddDays(-1));
+        t = TimeHelper.CalculateStartOfWeek(DateTime.Now.AddDays(-2));
+        t = TimeHelper.CalculateStartOfWeek(DateTime.Now.AddDays(-3));
+        t = TimeHelper.CalculateStartOfWeek(DateTime.Now.AddDays(-4));
+        t = TimeHelper.CalculateStartOfWeek(DateTime.Now.AddDays(-5));
+
+
+
 
         var pair = Cryptogram.GenerateKeyPair();
-
-        Cryptogram.InitializeWithPublicKey(pair.Item1);
-        Cryptogram.InitializeWithPrivateKey(pair.Item2);
-        var tt = Cryptogram.EncryptString("test");
-        var text = Cryptogram.DecryptString(tt);
+        var cryptogram = new Cryptogram();
+        cryptogram.InitializeWithPublicKey(pair.Item1);
+        cryptogram.InitializeWithPrivateKey(pair.Item2);
+        var tt = cryptogram.EncryptString("test");
+        var text = cryptogram.DecryptString(tt);
 
 
 
