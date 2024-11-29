@@ -5,6 +5,8 @@ namespace GameUtils
     public class TimeHelper
     {
         public const int WeekOfDay = 7;
+        public const int MonthOfDay = 30;
+
         public static int GetDateTimeToWeek(DateTime dateTime)
         {
             var totalDays = TimeSpan.FromTicks(DateTime.UtcNow.Ticks - dateTime.Ticks).TotalDays;
@@ -30,6 +32,5 @@ namespace GameUtils
             var weekStartDate = dateTime.AddDays(-daysToWeekStart);
             return weekStartDate;
         }
-
     }
 }

@@ -4,13 +4,16 @@ using System.Linq;
 
 namespace GameUtils.Path
 {
-    public class AStartPriorityGenerator : IPathGenerator
+    internal class AStartPriorityGenerator : IPathGenerator
     {
         private readonly int[,] _map;
         private readonly int _width;
         private readonly int _height;
-        private readonly int[] _dx = { -1, 0, 1, 0 };
-        private readonly int[] _dy = { 0, 1, 0, -1 };
+        //private readonly int[] _dx = { -1, 0, 1, 0, };
+        //private readonly int[] _dy = { 0, 1, 0, -1, };
+
+        private readonly int[] _dx = { -1, 0, 1, 0, -1, 1, 1, -1 };
+        private readonly int[] _dy = { 0, 1, 0, -1, 1, 1, -1, -1 };
 
         public AStartPriorityGenerator(int width, int height)
         {
@@ -51,7 +54,7 @@ namespace GameUtils.Path
                     return GeneratePath(currentNode);
                 }
 
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     int neighborX = currentNode.X + _dx[i];
                     int neighborY = currentNode.Y + _dy[i];
@@ -70,10 +73,12 @@ namespace GameUtils.Path
                             {
                                 continue;
                             }
+                            double cost = (i >= 4) ? 1.414 : 1;
+
                             AStartNode neighborNode = new AStartNode(neighborX, neighborY)
                             {
                                 Parent = currentNode,
-                                G = currentNode.G + index * 2 + 1,
+                                G = (int)(currentNode.G + index * 2 + cost),
                                 H = CalculateHeuristic(new PathNode(neighborX, neighborY), goalNode)
                             };
                             if (!openList.Any(n => n.X == neighborX && n.Y == neighborY))
